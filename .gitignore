@@ -1,0 +1,5 @@
+*.pyc
+.idea/
+collection.log
+schema/
+schema_links.txt
