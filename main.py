@@ -47,7 +47,7 @@ def main():
     logging.info("Current time is: " + current_time)
 
     # Get path for collection files from command line arguments
-    parser = argparse.ArgumentParser(description='A WAE collection tool for EPNM')
+    parser = argparse.ArgumentParser(description='A collection tool for RESTCONF APIs')
     parser.add_argument('-i', '--server_url', metavar='N', type=str, nargs='?',
                         help="Please provide the RESTCONF Server URL")
     parser.add_argument('-u', '--user', metavar='N', type=str, nargs='?',
@@ -57,7 +57,8 @@ def main():
     args = parser.parse_args()
 
     # base_url = 'http://cnc-il-ucs-haim2-onc.cisco.com/nbiservice'
-    uri = '/restconf/data/ietf-yang-library:modules-state'
+    # uri = '/restconf/data/ietf-yang-library:modules-state'
+    uri = '/restconf/data'
 
     logging.info("Cleaning files from last collection...")
     try:
@@ -71,7 +72,11 @@ def main():
     yang_modules_dict = json.loads(utils.rest_get_json(args.server_url, uri, args.user, args.passwd))
 
     with open("schema_links.txt", 'w', encoding="utf8") as f:
-        for module in yang_modules_dict['ietf-yang-library:modules-state']['module']:
+        try:
+            modules = yang_modules_dict['ietf-restconf:data']['ietf-yang-library:modules-state']['module']
+        except Exception as err:
+            modules = yang_modules_dict['ietf-yang-library:modules-state']['module']
+        for module in modules:
             tmp_schema = module['schema'].replace("localhost:8008", "cnc-il-ucs-haim2-onc.cisco.com/nbiservice")
             f.write("{}{}".format(tmp_schema, "\n"))
         f.close()
