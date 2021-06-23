@@ -28,6 +28,7 @@ class BearerAuth(requests.auth.AuthBase):
 
 
 def rest_get_json(baseURL, uri, user, password):
+    requests.urllib3.disable_warnings()
     proxies = {
         "http": None,
         "https": None,
@@ -57,6 +58,7 @@ def rest_get_json(baseURL, uri, user, password):
 
 
 def rest_get_schema(baseURL, uri, user, password):
+    requests.urllib3.disable_warnings()
     proxies = {
         "http": None,
         "https": None,
@@ -69,7 +71,7 @@ def rest_get_schema(baseURL, uri, user, password):
     else:
         auth = (user, password)
     try:
-        r = requests.get(restURI, proxies=proxies, auth=auth, verify=False)
+        r = requests.get(restURI, headers=headers, proxies=proxies, auth=auth, verify=False)
         # logging.info('The API response for URL {} is:\n{}'.format(restURI, json.dumps(r.json(), separators=(",",":"), indent=4)))
         if r.status_code == 200:
             return r.text
@@ -85,6 +87,7 @@ def rest_get_schema(baseURL, uri, user, password):
 
 
 def rest_post_json(baseURL, uri, thejson, user, password):
+    requests.urllib3.disable_warnings()
     proxies = {
         "http": None,
         "https": None,
