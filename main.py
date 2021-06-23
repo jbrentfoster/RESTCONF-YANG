@@ -80,7 +80,7 @@ def main():
             if "localhost" in module['schema']:
                 tmp_schema = module['schema'].replace("localhost:8008", "cnc-il-ucs-haim2-onc.cisco.com/nbiservice")
             else:
-                tmp_schema = args.server_url + uri + module['schema']
+                tmp_schema = args.server_url + "/restconf" + module['schema']
             f.write("{}{}".format(tmp_schema, "\n"))
         f.close()
 
