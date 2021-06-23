@@ -61,8 +61,8 @@ def rest_get_schema(baseURL, uri, user, password):
         "http": None,
         "https": None,
     }
-    # appformat = 'application/yang-data+json'
-    # headers = {'content-type': appformat, 'accept': appformat}
+    appformat = 'application/yang'
+    headers = {'accept': appformat}
     restURI = baseURL + uri
     if user == 'BEARER_TOKEN':
         auth = BearerAuth(password)
