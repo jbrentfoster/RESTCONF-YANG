@@ -77,7 +77,10 @@ def main():
         except Exception as err:
             modules = yang_modules_dict['ietf-yang-library:modules-state']['module']
         for module in modules:
-            tmp_schema = module['schema'].replace("localhost:8008", "cnc-il-ucs-haim2-onc.cisco.com/nbiservice")
+            if "localhost" in module['schema']:
+                tmp_schema = module['schema'].replace("localhost:8008", "cnc-il-ucs-haim2-onc.cisco.com/nbiservice")
+            else:
+                tmp_schema = args.server_url + uri + module['schema']
             f.write("{}{}".format(tmp_schema, "\n"))
         f.close()
 
