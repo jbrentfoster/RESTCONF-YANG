@@ -47,7 +47,7 @@ def main():
     logging.info("Current time is: " + current_time)
 
     # Get path for collection files from command line arguments
-    parser = argparse.ArgumentParser(description='A collection tool for RESTCONF APIs')
+    parser = argparse.ArgumentParser(description='A schema collection tool for RESTCONF APIs')
     parser.add_argument('-i', '--server_url', metavar='N', type=str, nargs='?',
                         help="Please provide the RESTCONF Server URL")
     parser.add_argument('-u', '--user', metavar='N', type=str, nargs='?',
